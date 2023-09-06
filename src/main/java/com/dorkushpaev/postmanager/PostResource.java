@@ -2,6 +2,7 @@ package com.dorkushpaev.postmanager;
 
 import com.dorkushpaev.postmanager.model.Post;
 import com.dorkushpaev.postmanager.service.PostService;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +45,9 @@ public class PostResource {
         return new ResponseEntity<>(updatePost, HttpStatus.OK);
     }
 
-    @PutMapping("/delete/{id}")
+    @Transactional
+//    @PutMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deletePostById(@PathVariable("id") Long id){//метод ничего не возвращает
         postService.deletePostById(id);
         return new ResponseEntity<>(HttpStatus.OK);
