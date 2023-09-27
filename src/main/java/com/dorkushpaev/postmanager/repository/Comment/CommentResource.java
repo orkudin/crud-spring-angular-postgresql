@@ -59,4 +59,10 @@ public class CommentResource {
         List<Comment> comments = commentService.getAllCommentsByUser(id);
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }
+
+    @GetMapping("/findAllCommentsByPostId/{id}")
+    public ResponseEntity<List<Comment>> getAllCommentsByPostId(@PathVariable ("id") Long id){
+        List<Comment> comments = commentService.getAllCommentsByPost(id);
+        return new ResponseEntity<>(comments, HttpStatus.OK);
+    }
 }

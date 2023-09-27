@@ -11,4 +11,5 @@ public interface CommentService {
     void deleteCommentById(long id);
     Comment findCommentById(Long id);
     List<Comment> getAllCommentsByUser(Long id);
+    List<Comment> getAllCommentsByPost(Long id);
 }
