@@ -1,4 +1,4 @@
-package com.dorkushpaev.postmanager.service;
+package com.dorkushpaev.postmanager.service.PostService;
 
 import com.dorkushpaev.postmanager.model.Post;
 
@@ -10,5 +10,5 @@ public interface PostService {
     Post updatePost(Post post);
     void deletePostById(long id);
     Post findPostById(Long id);
-
+    List<Post> getAllPostsByUser(Long id);
 }

@@ -1,8 +1,9 @@
-package com.dorkushpaev.postmanager.service;
+package com.dorkushpaev.postmanager.service.PostService;
 
 import com.dorkushpaev.postmanager.exception.PostNotFoundException;
 import com.dorkushpaev.postmanager.model.Post;
-import com.dorkushpaev.postmanager.repository.PostRepository;
+import com.dorkushpaev.postmanager.repository.PostRepository.PostRepository;
+import com.dorkushpaev.postmanager.service.UserService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.util.List;
 public class PostServiceImpl implements PostService {
     @Autowired
     private PostRepository postRepository;
+    private UserService userService;
 
     @Override
     public List<Post> findAllPosts() {
@@ -47,5 +49,9 @@ public class PostServiceImpl implements PostService {
         return postRepository.findById(id).orElseThrow(() -> new PostNotFoundException("Post by id " + id + " was not found"));
     }
 
+    @Override
+    public List<Post> getAllPostsByUser(Long id) {
+        return postRepository.findPostsByUserId(id);
+    }
 
 }

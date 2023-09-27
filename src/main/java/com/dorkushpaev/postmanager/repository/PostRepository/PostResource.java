@@ -1,7 +1,7 @@
-package com.dorkushpaev.postmanager;
+package com.dorkushpaev.postmanager.repository.PostRepository;
 
 import com.dorkushpaev.postmanager.model.Post;
-import com.dorkushpaev.postmanager.service.PostService;
+import com.dorkushpaev.postmanager.service.PostService.PostService;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,12 +46,16 @@ public class PostResource {
     }
 
     @Transactional
-//    @PutMapping("/delete/{id}")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deletePostById(@PathVariable("id") Long id){//метод ничего не возвращает
         postService.deletePostById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/findAllPostsByUserId/{id}")
+    public ResponseEntity<List<Post>> getAllPostsByUserId(@PathVariable("id") Long id){
+        List<Post> posts = postService.getAllPostsByUser(id);
+        return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
 
 }
