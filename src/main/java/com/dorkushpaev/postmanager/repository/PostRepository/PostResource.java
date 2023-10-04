@@ -1,7 +1,9 @@
 package com.dorkushpaev.postmanager.repository.PostRepository;
 
 import com.dorkushpaev.postmanager.model.Post;
+import com.dorkushpaev.postmanager.model.User;
 import com.dorkushpaev.postmanager.service.PostService.PostService;
+import com.dorkushpaev.postmanager.service.UserService.UserService;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +16,11 @@ import java.util.List;
 @RequestMapping("/post")
 public class PostResource {
     private final PostService postService;
+    private final UserService userService;
 
-    public PostResource(PostService postService) {
+    public PostResource(PostService postService, UserService userService) {
         this.postService = postService;
+        this.userService = userService;
     }
 
     @GetMapping("/all")
@@ -35,12 +39,19 @@ public class PostResource {
     public ResponseEntity<Post> addPost(@RequestBody Post post){
         LocalDateTime date = LocalDateTime.now();
         post.setPostCreatedAt(date);
+        User user = userService.findUserById(2L);
+        post.setUserId(user.getUserId());
+        post.setUser(user);
         Post newPost = postService.savePost(post);
         return new ResponseEntity<>(newPost, HttpStatus.CREATED);//создали новый пост
     }
 
     @PutMapping("/update")
     public ResponseEntity<Post> updatePost(@RequestBody Post post){
+        System.out.println(post);
+        User user = userService.findUserById(2L);
+        post.setUserId(user.getUserId());
+        post.setUser(user);
         Post updatePost = postService.updatePost(post);
         return new ResponseEntity<>(updatePost, HttpStatus.OK);
     }
