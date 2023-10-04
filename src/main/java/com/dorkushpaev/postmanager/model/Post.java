@@ -25,7 +25,7 @@ public class Post implements Serializable {
     private Long userId;
     private String urlImage;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name="USER_ID", nullable = false)
     @JsonIgnore
     private User user;
